@@ -4,23 +4,30 @@
 
 // Packages
 import React from "react";
+import PropTypes from "prop-types";
 
 // UI local components
-import TaskListLayout from "./components/organisms/TaskListLayout/TaskListLayout";
+import Task from "../../atomes/Task/Task";
 
-//  Context
-import { TasksContextProvider } from "./context/TasksContext";
+// Style
+import "./TaskList.css";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Component                                 */
 /* -------------------------------------------------------------------------- */
 
-function App() {
-  return (
-    <TasksContextProvider>
-      <TaskListLayout />
-    </TasksContextProvider>
-  );
-}
 
-export default App;
+const TaskList = ({tasks}) => {
+  return tasks.map((item) => <Task key={item._id} task={item} />);
+};
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      content: PropTypes.string,
+    })
+  ).isRequired,
+};
+
+export default TaskList;
